@@ -4,7 +4,7 @@ import { Button, Table } from 'react-bootstrap'
 export const EnrollList = () => {
   return (
     <div className='container'>
-		<h1>Avaliações Cadastradas</h1>
+		<h1>Matrículas Realizadas</h1>
 	<Table  striped bordered hover className="mt-1">
 	<thead>
 	  <tr>

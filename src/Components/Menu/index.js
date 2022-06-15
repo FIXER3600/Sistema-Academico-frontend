@@ -24,7 +24,7 @@ export default function Menu() {
   return (
     <>
       <Navbar bg="light" expand="lg" className="d-flex flex-row justify-content-between">
-        <Navbar.Brand href="#home" className="flex-grow-1" ><Nav.Link href="/"> <img  src={Logo}/></Nav.Link></Navbar.Brand>
+        <Navbar.Brand href="#home" className="flex-grow-1" ><Nav.Link href="/"> <img alt='Logo' src={Logo}/></Nav.Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">

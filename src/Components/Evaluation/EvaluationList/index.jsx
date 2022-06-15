@@ -1,7 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
+import api from '../../../service/api';
 
 export const EvaluationList = () => {
+	const [avaliacao, setAvaliacao] = useState([]);
+
+  async function loadAvaliacoes() {
+    await api
+      .get("/avaliacao")
+      .then((response) => {
+        setAvaliacao(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  useEffect(() => {
+    loadAvaliacoes();
+  }, []);
   return (
     <div className='container'>
 		<h1>Avaliações Cadastradas</h1>
@@ -11,18 +28,20 @@ export const EvaluationList = () => {
 	    <th>Disciplina</th>
 	    <th>Tipo</th>
 	    <th>Peso</th>
+	    <th>Opções</th>
 	  </tr>
 	</thead>
 	<tbody> 
-	      <tr>
-		<td>Lab. de Engenharia</td>
-		<td>P1</td>
-  
-		<td>0.5</td>
+	{avaliacao.map((a) => (
+              <tr key={a.codigo}>
+                <td>{a.disciplina.nome}</td>
+                <td>{a.tipo}</td>
+		<td>{a.peso}</td>
+              
 		<Button>Editar</Button>
-		<Button variant="danger">Deletar</Button>
-	      </tr>
-	     
+            <Button variant="danger">Deletar</Button>
+              </tr>
+            ))}
 	  
   
 	</tbody>
