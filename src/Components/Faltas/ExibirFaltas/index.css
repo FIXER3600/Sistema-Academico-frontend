@@ -1,0 +1,14 @@
+.containerNotas{
+  margin: 4rem 8rem;
+}
+
+.inputNota{
+  width: 3rem;
+}
+
+#inputAvaliacao{
+  width: 10rem;
+}
+.botao-relatorio{
+  border-radius: 8px;
+}

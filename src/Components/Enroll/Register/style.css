@@ -1,0 +1,25 @@
+.container{
+	margin: 4rem 8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+      }
+#ra{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+#ra input{
+	width: 40rem;
+}
+#disciplina{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+#disciplina input{
+	width: 40rem;
+}
