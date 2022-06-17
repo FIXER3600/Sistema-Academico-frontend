@@ -19,6 +19,10 @@ import { CourseList } from '../Course/CourseList';
 import { EnrollList } from '../Enroll/EnrollList';
 import { SubjectsList } from '../Subject/SubjectsList';
 import { EvaluationList } from '../Evaluation/EvaluationList';
+import { EditStudentPage } from '../Student/Edit';
+import { EditCoursePage } from '../Course/Edit';
+import { EditSubjectPage } from '../Subject/Edit';
+import { EditEvaluationPage } from '../Evaluation/Edit';
 export default function Menu() {
 
   return (
@@ -79,6 +83,10 @@ export default function Menu() {
 <Route path='/visualizarMatriculas' element={<EnrollList/>}/>
 <Route path='/visualizarDisciplinas' element={<SubjectsList/>}/>
 <Route path='/evaluationList' element={<EvaluationList/>}/>
+<Route path="/student/edit/:id" element={<EditStudentPage/>}/>
+<Route path="/course/edit/:id" element={<EditCoursePage/>}/>
+<Route path="/subject/edit/:id" element={<EditSubjectPage/>}/>
+<Route path="/evaluation/edit/:id" element={<EditEvaluationPage/>}/>
       </Routes>
       
 

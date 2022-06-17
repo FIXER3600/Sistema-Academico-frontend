@@ -1,0 +1,37 @@
+.container{
+	margin: 4rem 8rem;
+	display: flex;
+	justify-content: flex-start;	
+	flex-direction: column;
+      }
+#ra{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	margin: 1rem;
+
+}
+#ra input{
+	width: 40rem;
+}
+#nome{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	margin: 1rem;
+}
+#nome input{
+	width: 40rem;
+}
+#curso{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	margin: 1rem;
+}
+#curso input{
+	width: 40rem;
+}

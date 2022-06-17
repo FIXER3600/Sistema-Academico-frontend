@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
+import { goToEditEvaluationPage } from '../../../routes/coordinator';
 import api from '../../../service/api';
-
+import { useNavigate } from "react-router-dom"
 export const EvaluationList = () => {
 	const [avaliacao, setAvaliacao] = useState([]);
-
+  const navigate=useNavigate()
   async function loadAvaliacoes() {
     await api
       .get("/avaliacao")
@@ -38,7 +39,7 @@ export const EvaluationList = () => {
                 <td>{a.tipo}</td>
 		<td>{a.peso}</td>
               
-		<Button>Editar</Button>
+		<Button onClick={()=>goToEditEvaluationPage(a.codigo,navigate)}>Editar</Button>
             <Button variant="danger">Deletar</Button>
               </tr>
             ))}

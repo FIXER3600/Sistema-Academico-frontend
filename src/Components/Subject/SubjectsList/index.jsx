@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
+import { goToEditSubjectPage } from '../../../routes/coordinator';
 import api from '../../../service/api';
-
+import { useNavigate } from "react-router-dom"
 export const SubjectsList = () => {
 	const [disciplina, setDisciplina] = useState([]);
-
+  const navigate=useNavigate()
   async function loadDisciplinas() {
     await api
       .get("/disciplinas")
@@ -43,7 +44,7 @@ export const SubjectsList = () => {
                 <td>{d.turno}</td>
 		<td>{d.numAulas}</td>
 		{console.log(d.numAulas)}
-		<Button>Editar</Button>
+		<Button onClick={()=>goToEditSubjectPage(d.codigo,navigate)}>Editar</Button>
             <Button variant="danger">Deletar</Button>
               </tr>
             ))}

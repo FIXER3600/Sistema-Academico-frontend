@@ -1,0 +1,53 @@
+.container{
+	margin: 4rem 8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+      }
+
+	#nome{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	#nome input{
+		width: 40rem;
+	}
+	#sigla{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	#sigla input{
+		width: 40rem;
+	}
+	#turno{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	#turno input{
+		width: 40rem;
+	}
+	#aulas{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	#aulas input{
+		width: 40rem;
+	}
+	#curso{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	#curso input{
+		width: 40rem;
+	}

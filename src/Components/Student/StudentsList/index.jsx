@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import api from "../../../service/api";
+import { useNavigate } from "react-router-dom"
 import "./style.css";
+import { goToEditStudentPage } from "../../../routes/coordinator";
 export const StudentsList = () => {
   const [aluno, setAluno] = useState([]);
 
+  const navigate=useNavigate()
   async function loadAlunos() {
     await api
       .get("/alunos")
@@ -39,7 +42,7 @@ console.log(aluno);
                 <td>{a.ra}</td>
                 <td>{a.nome}</td>
                 <td>{a.curso.nome}</td>
-		<Button>Editar</Button>
+		<Button onClick={()=>goToEditStudentPage(a.ra,navigate)}>Editar</Button>
             <Button variant="danger">Deletar</Button>
               </tr>
             ))}

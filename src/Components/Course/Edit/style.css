@@ -1,0 +1,34 @@
+.container{
+	margin: 4rem 8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+      }
+#nome{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+#nome input{
+	width: 40rem;
+}
+#total{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+#total input{
+	width: 40rem;
+}
+#carga{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+#carga input{
+	width: 40rem;
+}
