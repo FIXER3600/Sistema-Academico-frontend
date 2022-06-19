@@ -16,7 +16,20 @@ export const CourseList = () => {
 	      console.error(err);
 	    });
 	}
-      
+	
+	const deleteCourse=(id)=>{
+		const choose = window.confirm("Deseja mesmo deletar esse curso?");
+		if(choose){
+		  api.delete(`/cursos/curso/delete/${id}`)
+		  .then((res) => {
+			alert("Curso deletado!");
+		  })
+		  .catch((err) => {
+			console.log(err);
+		  });
+		}
+	  }
+	
 	useEffect(() => {
 	  loadCursos();
 	}, []);
@@ -41,7 +54,7 @@ export const CourseList = () => {
 		<td>{c.carga_horaria}</td>
               
 		<Button onClick={()=>goToEditCoursePage(c.codigo,navigate)}>Editar</Button>
-            <Button variant="danger">Deletar</Button>
+            <Button variant="danger" onClick={()=>deleteCourse(c.codigo)}>Deletar</Button>
               </tr>
             ))}
 	     

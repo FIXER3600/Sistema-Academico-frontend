@@ -16,6 +16,18 @@ export const SubjectsList = () => {
         console.error(err);
       });
   }
+  const deleteSubject=(code)=>{
+    const choose = window.confirm("Deseja mesmo deletar essa Disciplina?");
+    if(choose){
+       api.delete(`/disciplinas/curso/delete/${code}`)
+      .then((res) => {
+        alert("Disciplina deletada!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }
 
   useEffect(() => {
     loadDisciplinas();
@@ -45,7 +57,7 @@ export const SubjectsList = () => {
 		<td>{d.numAulas}</td>
 		{console.log(d.numAulas)}
 		<Button onClick={()=>goToEditSubjectPage(d.codigo,navigate)}>Editar</Button>
-            <Button variant="danger">Deletar</Button>
+            <Button variant="danger" onClick={()=>deleteSubject(d.codigo)}>Deletar</Button>
               </tr>
             ))}
 	</tbody>

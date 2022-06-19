@@ -16,6 +16,18 @@ export const EvaluationList = () => {
         console.error(err);
       });
   }
+  const deleteEvaluation=(code)=>{
+    const choose = window.confirm("Deseja mesmo deletar essa avaliação?");
+    if(choose){
+       api.delete(`/avaliacao/delete/${code}`)
+      .then((res) => {
+        alert("Avaliação deletada!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }
 
   useEffect(() => {
     loadAvaliacoes();
@@ -40,7 +52,7 @@ export const EvaluationList = () => {
 		<td>{a.peso}</td>
               
 		<Button onClick={()=>goToEditEvaluationPage(a.codigo,navigate)}>Editar</Button>
-            <Button variant="danger">Deletar</Button>
+            <Button variant="danger" onClick={()=>deleteEvaluation(a.codigo)}>Deletar</Button>
               </tr>
             ))}
 	  

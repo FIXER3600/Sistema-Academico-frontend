@@ -7,6 +7,19 @@ import { goToEditStudentPage } from "../../../routes/coordinator";
 export const StudentsList = () => {
   const [aluno, setAluno] = useState([]);
 
+  const deleteStudent=(ra)=>{
+    const choose = window.confirm("Deseja mesmo deletar essa viagem?");
+    if(choose){
+       api.delete(`/alunos/aluno/delete/${ra}`)
+      .then((res) => {
+        alert("Aluno deletado!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }
+
   const navigate=useNavigate()
   async function loadAlunos() {
     await api
@@ -43,11 +56,9 @@ console.log(aluno);
                 <td>{a.nome}</td>
                 <td>{a.curso.nome}</td>
 		<Button onClick={()=>goToEditStudentPage(a.ra,navigate)}>Editar</Button>
-            <Button variant="danger">Deletar</Button>
+            <Button variant="danger" onClick={()=>deleteStudent(a.ra)}>Deletar</Button>
               </tr>
             ))}
-       
-          
         </tbody>
       </Table>
     </div>
