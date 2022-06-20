@@ -27,43 +27,28 @@ export default function ExibirFaltas() {
   useEffect(() => {
     if (disciplina.length !== 0) {
       setDisciplinaSelecionada(disciplina[0])
-
-
-
     }
   }, [disciplina])
-
-
-
-
 
   async function loadCursos() {
     await api.get("/cursos")
       .then((response) => {
         setCurso(response.data)
-
-
       })
       .catch((err) => {
         console.error(err)
       })
-
   }
-
   async function loadDisciplina(curso) {
     await api.get("/disciplinas/curso/" + curso.codigo)
       .then((response) => {
         setDisciplina(response.data)
-
       })
       .catch((err) => {
         console.error(err)
       })
 
   }
-
-
-
   function selectCurso(event) {
 
     var cursoSelecionado = {

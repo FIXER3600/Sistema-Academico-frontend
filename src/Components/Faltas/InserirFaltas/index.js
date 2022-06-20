@@ -112,7 +112,7 @@ export default function InserirFaltas() {
         <Row className="mt-4">
           <Col>
             <Form.Label>Curso</Form.Label>
-            <Form.Control as="select" defaultValue="Selecione a disciplina" onChange={selectCurso} >
+            <Form.Control as="select" defaultValue="Selecione a disciplina" onChange={selectCurso} id='cursos'>
               {
                 curso.map((c) => (<option key={c.codigo} value={c.codigo}> {c.nome} </option>))
               }

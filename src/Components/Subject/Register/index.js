@@ -39,7 +39,7 @@ export const RegisterSubject = () => {
           console.error(err);
         });
   }
-  console.log(curso);
+  
 useEffect(() => {
   cursos();
 }, []);

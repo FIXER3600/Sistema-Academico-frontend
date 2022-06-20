@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
 import useForm from '../../../../hook/useForm';
+import { goToSubjectListPage } from '../../../../routes/coordinator';
 import api from '../../../../service/api';
-
+import { useNavigate } from 'react-router-dom';
 export const FormEditSubject = ({subject,param}) => {
 	const { form, onChange, clearFields } = useForm({
 		codigo:subject.codigo,
@@ -12,14 +13,14 @@ export const FormEditSubject = ({subject,param}) => {
 		numAulas:subject.numAulas,
 	       curso: subject.curso.codigo
 	      });
-	   
+	   const navigate=useNavigate()
 	      const editSubject=(e)=>{
 		e.preventDefault()
-		api.put(`/disciplinas/curso/update/${param.codigo}`,{"codigo":form.codigo,
+		api.put(`/disciplinas/curso/update/${param.id}`,{"codigo":form.codigo,
 	"nome":form.nome,"sigla":form.sigla,"turno":form.turno,"numAulas":form.numAulas,"curso":{"codigo":form.curso}})
 	.then(({data})=>{
 		alert("Disciplina Editada!")
-	    
+	    goToSubjectListPage(navigate)
 	      }).catch((err) => {
 		console.log(err);
 	      });

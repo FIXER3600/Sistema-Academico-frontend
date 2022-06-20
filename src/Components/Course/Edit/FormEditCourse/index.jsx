@@ -1,8 +1,9 @@
 import React from 'react'
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
 import useForm from '../../../../hook/useForm';
+import { goToCourseListPage } from '../../../../routes/coordinator';
 import api from '../../../../service/api';
-
+import { useNavigate } from 'react-router-dom';
 export const FormEditCourse = ({curso,param}) => {
 
 	const { form, onChange} = useForm({
@@ -10,7 +11,9 @@ export const FormEditCourse = ({curso,param}) => {
 		limite_alunos: curso && curso.limite_alunos,
 		carga_horaria: curso && curso.carga_horaria
 	      });
+	      const navigate=useNavigate()
 	const editCourse = (e) => {
+		e.preventDefault()
 		api
 		  .put(`/cursos/curso/update/${param.id}`, {
 		    "nome":form.nome,
@@ -20,6 +23,7 @@ export const FormEditCourse = ({curso,param}) => {
 	    
 		  .then(({ data }) => {
 		    alert("Curso editado!");
+		    goToCourseListPage(navigate)
 		  })
 		  .catch((err) => {
 		

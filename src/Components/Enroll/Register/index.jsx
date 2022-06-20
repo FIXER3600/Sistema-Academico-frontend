@@ -6,24 +6,26 @@ import useForm from '../../../hook/useForm'
 import api from '../../../service/api'
 import './style.css'
 export const Enroll = () => {
-  const { form, onChange, clearFields } = useForm({
-    raAluno:0,
-    codigoDisciplina: ""
-  });
   const [disciplina,setDisciplina]=useState([])
   const [aluno,setAluno]=useState([])
   const [curso, setCurso] = useState([]);
+  const { form, onChange } = useForm({
+    raAluno: 0,
+    codigoDisciplina:''
+  });
+
 
   const createEnroll=(e)=>{
     e.preventDefault()
     api.post("/matriculas/matricula/create",form)
+   
   .then(({data})=>{
       alert("Matrícula Criada!")
   
     }).catch((err) => {
       console.log(err);
     });
-    clearFields();
+    
   }
   async function loadDisciplina(curso) {
     await api.get("/disciplinas/curso/" + curso.codigo)
@@ -35,9 +37,9 @@ export const Enroll = () => {
       })
 
   }
-  async function loadAlunos() {
+  async function loadAlunos(curso) {
     await api
-      .get("/alunos")
+      .get("/alunos/aluno/curso/"+curso.codigo)
       .then((response) => {
         setAluno(response.data);
       })
@@ -51,8 +53,9 @@ export const Enroll = () => {
   useEffect(() => {
     if (curso.length !== 0) {
       loadDisciplina(curso[0])
+     loadAlunos(curso[0])
     }
-      loadAlunos()  
+     
   }, [curso])
  
   const cursos=()=>{
@@ -63,6 +66,16 @@ export const Enroll = () => {
         .catch((err) => {
           console.error(err);
         });
+  }
+  function selectCurso(event) {
+
+    var cursoSelecionado = {
+      codigo: event.target.value
+    }
+
+    loadDisciplina(cursoSelecionado)
+    loadAlunos(cursoSelecionado) 
+
   }
   
 
@@ -76,22 +89,22 @@ export const Enroll = () => {
     <div className='container'><h1>Matrícula</h1>
     <div id='curso'>
   <Form.Label htmlFor="basic-url">Curso</Form.Label>
-  <Form.Control as='select' defaultValue={'Selecione o curso que o aluno fará'} htmlFor="basic-url" value={form.curso} onChange={onChange} name='curso'>
+  <Form.Control as='select' defaultValue={'Selecione o curso que o aluno fará'} htmlFor="basic-url"  onChange={selectCurso} name='curso'>
 	 {coursesList} 
 
   </Form.Control>
   </div>
     <div id='ra'>
      <Form.Label htmlFor="basic-url">RA do Aluno</Form.Label>
-     <Form.Control as="select" name='raAluno' defaultValue="Selecione o aluno" onChange={onChange}>
+     <Form.Control as="select" name='raAluno' defaultValue="Selecione o aluno" onChange={onChange} value={form.raAluno}>
               {
                 aluno?.map((a) => (<option key={a.ra} value={a.ra}> {a.ra} - {a.nome} </option>))
               }
             </Form.Control>
   </div>
   <div id='disciplina'>
-  <Form.Label>Disciplina</Form.Label>
-            <Form.Control as="select" name='codigoDisciplina' defaultValue="Selecione a disciplina" onChange={onChange}>
+  <Form.Label htmlFor="basic-url">Disciplina</Form.Label>
+            <Form.Control as="select" name='codigoDisciplina' defaultValue="Selecione a disciplina" onChange={onChange} value={form.codigoDisciplina}>
               {
                 disciplina?.map((d) => (<option key={d.codigo} value={d.codigo}> {d.codigo} - {d.nome} - {d.turno} </option>))
               }

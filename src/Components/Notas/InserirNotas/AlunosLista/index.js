@@ -29,7 +29,7 @@ export default function AlunosLista({ avaliacao }) {
   async function loadAlunos(avaliacao) {
 
     if (avaliacao.codigo !== undefined) {
-      await api.get("alunos/nota/" + avaliacao.codigo)
+      await api.get("/alunos/nota/" + avaliacao.codigo)
         .then((response) => {
           setAluno(response.data)
         })

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import useForm from '../../../../hook/useForm';
+import { goToStudentListPage } from '../../../../routes/coordinator';
 import api from '../../../../service/api';
 
 export const FormEditStudent = ({aluno,param}) => {
@@ -9,6 +11,7 @@ export const FormEditStudent = ({aluno,param}) => {
 		nome: aluno && aluno.nome,
 		curso:  aluno.curso.codigo
 	      });
+	      const navigate=useNavigate()
 	      const editStudent = (e) => {
 		e.preventDefault();
 		api
@@ -18,6 +21,7 @@ export const FormEditStudent = ({aluno,param}) => {
 		  })
 		  .then(({ data }) => {
 		    alert("Aluno Editado!");
+		    goToStudentListPage(navigate)
 		  })
 		  .catch((err) => {
 		    console.log(err);
