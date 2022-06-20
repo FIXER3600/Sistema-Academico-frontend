@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
-import useForm from '../../../hook/useForm';
-import api from '../../../service/api';
-import './style.css'
-export const RegisterSubject = () => {
-  const { form, onChange, clearFields } = useForm({
-    codigo:"",
-    nome: "",
-    sigla:"",
-    turno: "",
-    numAulas:0,
-   curso: 0
-  });
-  const createSubject=(e)=>{
-    e.preventDefault()
-    api.post(`/disciplinas/curso/create`,{
-      "codigo":form.codigo,
-      "nome":form.nome,
-      "sigla":form.sigla,
-      "turno":form.turno,
-      "numAulas":form.numAulas,
-      "curso":{"codigo":form.curso}
-    }).then(({data})=>{
-      alert("Disciplina Criada!")
-  
-    }).catch((err) => {
-      console.log(err);
-    });
-    clearFields();
-  }
-  const [curso, setCurso] = useState([]);
+import useForm from '../../../../hook/useForm';
+import api from '../../../../service/api';
+
+export const FormEditSubject = ({subject,param}) => {
+	const { form, onChange, clearFields } = useForm({
+		codigo:subject.codigo,
+		nome:subject.nome,
+		sigla:subject.sigla,
+		turno:subject.turno,
+		numAulas:subject.numAulas,
+	       curso: subject.curso.codigo
+	      });
+	   
+	      const editSubject=(e)=>{
+		e.preventDefault()
+		api.put(`/disciplinas/curso/update/${param.codigo}`,{"codigo":form.codigo,
+	"nome":form.nome,"sigla":form.sigla,"turno":form.turno,"numAulas":form.numAulas,"curso":{"codigo":form.curso}})
+	.then(({data})=>{
+		alert("Disciplina Editada!")
+	    
+	      }).catch((err) => {
+		console.log(err);
+	      });
+	      clearFields();
+	      }
+	      const [curso, setCurso] = useState([]);
   const cursos=()=>{
     api.get("/cursos")
         .then((response) => {
@@ -48,18 +44,10 @@ const coursesList=curso?.map((curso,index)=>{
   <option key={index} value={curso.codigo}>{curso.codigo} - {curso.nome}</option>
   </>)
 })
-
   return (
-    <form onSubmit={createSubject} method="POST">
-    <div className='container'>
-      <h1>Cadastrar Disciplina</h1>
-     <div id='codigo'>
-    <Form.Label htmlFor="ra" >Código da Disciplina</Form.Label>
-	<InputGroup size="sm" name="ra" className="mb-3" >
-    <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" name='codigo' value={form.codigo} onChange={onChange}/>
-  </InputGroup>
-  </div>
-      <div id='nome'>
+	<form onSubmit={editSubject} method='PUT'>
+	<div className='container'><h1>Editar Disciplina</h1>
+	<div id='nome'>
     <Form.Label htmlFor="ra" >Nome</Form.Label>
 	<InputGroup size="sm" name="ra" className="mb-3" >
     <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" name='nome' value={form.nome} onChange={onChange}/>
@@ -89,8 +77,8 @@ const coursesList=curso?.map((curso,index)=>{
 
   </Form.Control>
   </div>
-  <Button variant="primary" type='submit'>Cadastrar</Button>
-    </div>
-    </form>
+	<Button variant="primary" type='submit'>Editar</Button>
+	  </div>
+	  </form>
   )
 }

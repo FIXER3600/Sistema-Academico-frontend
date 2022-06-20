@@ -32,7 +32,7 @@ export const CourseList = () => {
 	
 	useEffect(() => {
 	  loadCursos();
-	}, []);
+	}, [curso]);
 
   return (
     <div className='container'>

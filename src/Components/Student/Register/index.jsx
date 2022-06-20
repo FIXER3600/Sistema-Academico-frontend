@@ -1,13 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
 import './style.css'
 import api from '../../../service/api';
 import useForm from '../../../hook/useForm';
+import { useEffect } from 'react';
 export const RegisterStudent = () => {
   const { form, onChange, clearFields } = useForm({
     nome: "",
    curso: ""
   });
+  const [curso, setCurso] = useState([]);
+  const cursos=()=>{
+    api.get("/cursos")
+        .then((response) => {
+          setCurso(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+  }
+  console.log(curso);
+useEffect(() => {
+  cursos();
+}, []);
 const createStudent=(e)=>{
   e.preventDefault();
   console.log(form);
@@ -24,6 +39,12 @@ const createStudent=(e)=>{
   clearFields();
 }
 
+const coursesList=curso?.map((curso,index)=>{
+  return(<>
+  <option key={index} value={curso.codigo}>{curso.codigo} - {curso.nome}</option>
+  </>)
+})
+
   return (
     <form onSubmit={createStudent} method="POST">
     <div className='container'>
@@ -37,9 +58,10 @@ const createStudent=(e)=>{
   </div>
   <div id='curso'>
   <Form.Label htmlFor="basic-url">Curso</Form.Label>
-	<InputGroup size="sm" className="mb-3">
-    <FormControl aria-label="Small" value={form.curso} onChange={onChange} aria-describedby="inputGroup-sizing-sm" type="number" name="curso"/>
-  </InputGroup>
+  <Form.Control as='select' defaultValue={'Selecione o curso que o aluno fará'} htmlFor="basic-url" value={form.curso} onChange={onChange} name='curso'>
+	 {coursesList} 
+
+  </Form.Control>
   </div>
   <Button variant="primary" type='submit'>Cadastrar</Button>
 	</div>

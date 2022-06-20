@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
-import useForm from '../../../hook/useForm';
-import api from '../../../service/api';
-import './style.css'
-export const Evaluation = () => {
-  const [disciplina,setDisciplina]=useState([])
-  const { form, onChange, clearFields } = useForm({
-    disciplina: '',
-    tipo: "",
-    peso:0.0,
-  });
- 
-const createEvaluation=(e)=>{
+import useForm from '../../../../hook/useForm'
+import api from '../../../../service/api'
+
+export const FormEditEvaluation = ({avaliacao,param}) => {
+	const [disciplina,setDisciplina]=useState([])
+	const { form, onChange, clearFields } = useForm({
+		disciplina:avaliacao.disciplina.codigo,
+		tipo: avaliacao && avaliacao.tipo,
+		peso:avaliacao && avaliacao.peso
+	      });
+
+
+	      const editEvaluation=(e)=>{
 e.preventDefault()
-console.log(form);
-api.post('/avaliacao/create',{"tipo":form.tipo,
+
+api.put(`/avaliacao/update/${param.id}`,{"tipo":form.tipo,
 "peso":form.peso,"disciplina":{"codigo":form.disciplina}})
 .then(({data})=>{
-  alert("Avaliação Criada!")
+  alert("Avaliação Editada!")
 }).catch((err) => {
   console.log(err);
 });
 clearFields();
 }
-async function loadDisciplina() {
-  await api.get("/disciplinas")
+const disciplinas =()=> {
+   api.get("/disciplinas")
     .then((response) => {
       setDisciplina(response.data)
     })
@@ -33,19 +34,20 @@ async function loadDisciplina() {
     })
 }
 useEffect(() => {
-  loadDisciplina()
+  disciplinas()
  
 }, [])
   return (
-    <form onSubmit={createEvaluation} method='POST'>
-    <div className='container'>
-      <h1>Criar Avaliação</h1>
-      <div id='codigo'>
+	<form onSubmit={editEvaluation} method='PUT'>
+	<div className='container'>
+	<h1>Editar Avaliação</h1>
+  <div id='codigo'>
   <Form.Label htmlFor="basic-url">Disciplina</Form.Label>
-  <Form.Control as="select" name='disciplina' defaultValue="Selecione a disciplina" onChange={onChange}>
+  <Form.Control as="select" name='disciplina' onChange={onChange} value={form.disciplina}>
               {
-                disciplina?.map((d) => (<option key={d.codigo} value={d.codigo}> {d.codigo} - {d.nome} - {d.turno} </option>))
+                disciplina?.map((d,index) => (<option key={index} value={d.codigo}> {d.codigo} - {d.nome} - {d.turno} </option>))
               }
+	      
             </Form.Control>
   </div>
   <div id='tipo'>
@@ -60,8 +62,8 @@ useEffect(() => {
     <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" type='number' name='peso' value={form.peso} onChange={onChange}/>
   </InputGroup>
   </div>
-  <Button variant="primary" type='submit'>Cadastrar</Button>
-    </div>
-    </form>
+    <Button variant="primary" type='submit'>Editar</Button>
+      </div>
+      </form>
   )
 }

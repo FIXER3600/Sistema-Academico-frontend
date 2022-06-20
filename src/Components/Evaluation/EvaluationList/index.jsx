@@ -29,9 +29,10 @@ export const EvaluationList = () => {
     }
   }
 
+
   useEffect(() => {
     loadAvaliacoes();
-  }, []);
+  }, [avaliacao]);
   return (
     <div className='container'>
 		<h1>Avaliações Cadastradas</h1>

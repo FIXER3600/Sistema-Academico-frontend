@@ -13,6 +13,11 @@
 }
 #codigo input{
 	width: 40rem;
+	
+}
+#codigo select{
+	margin-bottom: 1rem;
+	width: 40rem;
 }
 #tipo{
 	display: flex;

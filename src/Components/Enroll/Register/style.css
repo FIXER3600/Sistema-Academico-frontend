@@ -11,7 +11,7 @@
 	justify-content: center;
 	align-items: flex-start;
 }
-#ra input{
+#ra select{
 	width: 40rem;
 }
 #disciplina{
@@ -20,6 +20,16 @@
 	justify-content: center;
 	align-items: flex-start;
 }
-#disciplina input{
+#disciplina select{
+	width: 40rem;
+}
+#curso{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	
+}
+#curso select{
 	width: 40rem;
 }

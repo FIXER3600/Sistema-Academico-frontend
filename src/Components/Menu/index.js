@@ -23,7 +23,9 @@ import { EditStudentPage } from '../Student/Edit';
 import { EditCoursePage } from '../Course/Edit';
 import { EditSubjectPage } from '../Subject/Edit';
 import { EditEvaluationPage } from '../Evaluation/Edit';
+
 export default function Menu() {
+
 
   return (
     <>

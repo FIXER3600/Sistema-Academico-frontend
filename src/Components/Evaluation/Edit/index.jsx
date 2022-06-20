@@ -1,29 +1,16 @@
 import React from 'react'
-import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
 import './style.css'
+import { useParams } from 'react-router-dom';
+import { FormEditEvaluation } from './FormEditEvaluation';
+import useRequestData from '../../../hook/useRequestData';
 export const EditEvaluationPage = () => {
+  const param=useParams()
+  const { data } = useRequestData({}, `/avaliacao/${param.id}`)
+
+
   return (
-	<div className='container'>
-	<h1>Editar Avaliação</h1>
-	<div id='codigo'>
-    <Form.Label htmlFor="basic-url">Código da Disciplina</Form.Label>
-	  <InputGroup size="sm" className="mb-3">
-      <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" type='number'/>
-    </InputGroup>
-    </div>
-    <div id='tipo'>
-       <Form.Label htmlFor="basic-url">Tipo da Avaliação</Form.Label>
-	  <InputGroup size="sm" className="mb-3">
-      <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"/>
-    </InputGroup>
-    </div>
-    <div id='peso'>
-    <Form.Label htmlFor="basic-url">Peso</Form.Label>
-	  <InputGroup size="sm" className="mb-3">
-      <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" type='number'/>
-    </InputGroup>
-    </div>
-    <Button variant="primary">Editar</Button>
-      </div>
+    <>
+{data.disciplina &&  <FormEditEvaluation avaliacao={data} param={param}/>}
+</>
   )
 }

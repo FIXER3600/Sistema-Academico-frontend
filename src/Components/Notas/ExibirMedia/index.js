@@ -27,22 +27,13 @@ export default function ExibirMedia() {
   useEffect(() => {
     if (disciplina.length !== 0) {
       setDisciplinaSelecionada(disciplina[0])
-
-
-
     }
   }, [disciplina])
-
-
-
-
 
   async function loadCursos() {
     await api.get("cursos")
       .then((response) => {
         setCurso(response.data)
-
-
       })
       .catch((err) => {
         console.error(err)
@@ -54,7 +45,6 @@ export default function ExibirMedia() {
     await api.get("disciplinas/curso/" + curso.codigo)
       .then((response) => {
         setDisciplina(response.data)
-
       })
       .catch((err) => {
         console.error(err)
